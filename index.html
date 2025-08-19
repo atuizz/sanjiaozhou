@@ -20,6 +20,36 @@
       --warn: #f59e0b;
       --section-bg: #f8fafc;
     }
+
+    /* 默认主题（浅色） */
+    [data-theme="light"] {
+      --bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #dc2626;
+      --highlight: #ef4444;
+      --ring: rgba(220, 38, 38, 0.15);
+      --border: #e5e7eb;
+      --accent: #059669;
+      --warn: #f59e0b;
+      --section-bg: #f8fafc;
+    }
+
+    /* 暗色主题 */
+    [data-theme="dark"] {
+      --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #f97316;
+      --highlight: #fb923c;
+      --ring: rgba(249, 115, 22, 0.15);
+      --border: #334155;
+      --accent: #10b981;
+      --warn: #fbbf24;
+      --section-bg: #0f172a;
+    }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
@@ -86,12 +116,14 @@
     .category {
       background: var(--card);
       border-radius: 13px;
-      padding: 17px;
+      padding: 18px;
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
       border: 1px solid var(--border);
+      transform: scale(1.03);
+      margin: 8px;
     }
-    .category-title { font-size: 19px; font-weight: 700; margin: 0 0 11px; display: flex; align-items: center; gap: 8px; }
-    .category-icon { width: 29px; height: 29px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; }
+    .category-title { font-size: 20px; font-weight: 700; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+    .category-icon { width: 30px; height: 30px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
 
     .service-grid { display: grid; gap: 15px; grid-template-columns: 1fr; }
     @media (min-width: 600px) { .service-grid { grid-template-columns: 1fr 1fr; } }
@@ -120,57 +152,76 @@
     .price-table { background: var(--card); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
     .price-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 13px; border-bottom: 1px solid var(--border); }
     .price-row:last-child { border-bottom: none; }
-    .price-row:nth-child(even) { background: #fafbfc; }
-    .price-label { font-weight: 600; font-size: 14px; }
+    .price-row:nth-child(even) { background: var(--section-bg); }
+    .price-label { font-weight: 600; font-size: 14px; color: var(--text); }
     .price-value { font-weight: 700; color: var(--primary); font-size: 14px; }
 
     .notice { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 10px; padding: 12px; margin: 12px 0; font-size: 14px; color: #92400e; font-weight: 600; }
 
     /* 底部按钮样式 */
-    .bottom-actions {
+    /* 悬浮按钮样式 */
+    .floating-buttons {
+      position: fixed;
+      right: 15px;
+      bottom: 80px;
       display: flex;
-      gap: 17px;
-      justify-content: center;
-      margin-top: 17px;
-      padding: 0 21px 21px;
-      background: var(--section-bg);
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
     }
-    .action-btn {
-      flex: 1;
-      max-width: 189px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
-      color: white;
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       border: none;
-      border-radius: 13px;
-      padding: 15px 21px;
-      font-size: 15px;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
     }
-    .action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+    .floating-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
-    .action-btn.xianyu {
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      color: #333;
-      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    .floating-btn.xianyu-btn {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+      color: white;
     }
-    .action-btn.xianyu:hover {
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+    .floating-btn.contact-btn {
+      background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+      color: white;
     }
-    .btn-icon {
-      font-size: 17px;
+    .floating-btn.save-btn {
+      background: linear-gradient(135deg, #A8E6CF 0%, #88D8A3 100%);
+      color: white;
     }
-    .btn-text {
-       font-size: 14px;
-     }
+    .floating-btn svg {
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+      transition: transform 0.3s ease;
+    }
+    .floating-btn:hover svg {
+      transform: scale(1.1);
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .floating-buttons {
+        right: 10px;
+        bottom: 60px;
+        gap: 10px;
+      }
+      .floating-btn {
+        width: 45px;
+        height: 45px;
+      }
+      .floating-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
 
 
 
@@ -400,23 +451,43 @@
         </section>
       </div>
 
-        <!-- 底部按钮区域 -->
-        <div class="bottom-actions">
-          <button class="action-btn xianyu" id="xianyuBtn">
-            <span class="btn-icon">🐟</span>
-            <span class="btn-text">闲鱼店铺</span>
-          </button>
-          <button class="action-btn" id="contactBtn">
-            <span class="btn-icon">💬</span>
-            <span class="btn-text">联系客服</span>
-          </button>
-          <button class="action-btn" id="saveImageBtn">
-            <span class="btn-icon">📷</span>
-            <span class="btn-text">保存图片</span>
-          </button>
-        </div>
+
       </div>
      </main>
+
+    <!-- 悬浮按钮 -->
+    <div class="floating-buttons">
+      <!-- 闲鱼店铺按钮 -->
+      <button class="floating-btn xianyu-btn" onclick="showXianyuModal()" title="闲鱼店铺">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+      </button>
+      
+      <!-- 联系客服按钮 -->
+      <button class="floating-btn contact-btn" onclick="showContactModal()" title="联系客服">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </button>
+      
+      <!-- 保存图片按钮 -->
+      <button class="floating-btn save-btn" id="saveImageBtn" title="保存图片">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+        </svg>
+      </button>
+      
+      <!-- 主题切换按钮 -->
+      <button class="floating-btn theme-btn" id="themeToggleBtn" title="切换主题">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="theme-icon-light">
+          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+        </svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="theme-icon-dark" style="display: none;">
+          <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+        </svg>
+      </button>
+    </div>
 
     <!-- 闲鱼店铺弹窗 -->
     <div id="xianyuModal" class="modal">
@@ -481,11 +552,11 @@
 
      <script>
        // 弹窗功能
-      document.getElementById('xianyuBtn').onclick = function() {
+      function showXianyuModal() {
         document.getElementById('xianyuModal').style.display = 'block';
       }
       
-      document.getElementById('contactBtn').onclick = function() {
+      function showContactModal() {
         document.getElementById('contactModal').style.display = 'block';
       }
       
@@ -507,7 +578,7 @@
       // 闲鱼店铺跳转
       function openXianyu(shop) {
         const urls = {
-          'shop1': 'https://www.goofish.com/personal?spm=a21ybx.item.itemHeader.2.2ae93da6afOnvL&userId=2707871126',
+          'shop1': 'https://m.tb.cn/h.hu2UXNi?tk=n6PN49zfv2n',
           'shop2': 'https://www.goofish.com/personal?spm=a21ybx.item.itemHeader.1.198c3da6DZKXss&userId=2212376911114',
           'shop3': 'https://www.goofish.com/personal?spm=a21ybx.item.itemHeader.2.68523da6DaG3ev&userId=2220463981789'
         };
@@ -517,17 +588,22 @@
       }
       
       // 保存为图片功能
-      document.getElementById('saveImageBtn').onclick = function() {
-        document.getElementById('saveOptionsModal').style.display = 'block';
-      }
+      document.addEventListener('DOMContentLoaded', function() {
+        const saveBtn = document.getElementById('saveImageBtn');
+        if (saveBtn) {
+          saveBtn.onclick = function() {
+            document.getElementById('saveOptionsModal').style.display = 'block';
+          }
+        }
+      });
       
       // 保存图片选项功能
       function saveImage(type) {
         document.getElementById('saveOptionsModal').style.display = 'none';
         
-        // 隐藏底部按钮区域
-        const bottomActions = document.querySelector('.bottom-actions');
-        bottomActions.style.display = 'none';
+        // 隐藏悬浮按钮区域
+        const floatingButtons = document.querySelector('.floating-buttons');
+        floatingButtons.style.display = 'none';
         
         let targetElement;
         let fileName;
@@ -549,8 +625,8 @@
           scale: 2,
           useCORS: true
         }).then(canvas => {
-          // 恢复底部按钮显示
-          bottomActions.style.display = 'flex';
+          // 恢复悬浮按钮显示
+          floatingButtons.style.display = 'flex';
           
           // 创建下载链接
           const link = document.createElement('a');
@@ -558,13 +634,44 @@
           link.href = canvas.toDataURL();
           link.click();
         }).catch(error => {
-          // 恢复底部按钮显示
-          bottomActions.style.display = 'flex';
+          // 恢复悬浮按钮显示
+          floatingButtons.style.display = 'flex';
           alert('保存失败，请重试');
           console.error('截图失败:', error);
         });
       }
       
+      // 主题切换功能
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const lightIcon = document.querySelector('.theme-icon-light');
+        const darkIcon = document.querySelector('.theme-icon-dark');
+        
+        // 获取当前主题
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // 应用主题
+        function applyTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'dark') {
+            lightIcon.style.display = 'none';
+            darkIcon.style.display = 'block';
+          } else {
+            lightIcon.style.display = 'block';
+            darkIcon.style.display = 'none';
+          }
+        }
+        
+        // 初始化主题
+        applyTheme(currentTheme);
+        
+        // 主题切换事件
+        themeToggleBtn.addEventListener('click', function() {
+          currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+          applyTheme(currentTheme);
+          localStorage.setItem('theme', currentTheme);
+        });
+      });
 
     </script>
 
