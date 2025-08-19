@@ -255,6 +255,38 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border: 2px solid #f0f0f0;
     }
+    
+    /* 保存选项弹窗样式 */
+    .save-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .save-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .save-option-btn:hover {
+      border-color: var(--primary);
+      background: #fef2f2;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+    }
+    .option-icon {
+      font-size: 18px;
+    }
+    .option-text {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -425,6 +457,28 @@
       </div>
     </div>
 
+    <!-- 保存选项弹窗 -->
+    <div id="saveOptionsModal" class="modal">
+      <div class="modal-content">
+        <span class="close" data-modal="saveOptionsModal">&times;</span>
+        <h3>📷 保存图片</h3>
+        <div class="save-options">
+          <button class="save-option-btn" onclick="saveImage('experience')">
+            <span class="option-icon">🧪</span>
+            <span class="option-text">保存体验单</span>
+          </button>
+          <button class="save-option-btn" onclick="saveImage('formal')">
+            <span class="option-icon">🏅</span>
+            <span class="option-text">保存正式单</span>
+          </button>
+          <button class="save-option-btn" onclick="saveImage('full')">
+            <span class="option-icon">📋</span>
+            <span class="option-text">保存完整价目表</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
      <script>
        // 弹窗功能
       document.getElementById('xianyuBtn').onclick = function() {
@@ -464,12 +518,33 @@
       
       // 保存为图片功能
       document.getElementById('saveImageBtn').onclick = function() {
+        document.getElementById('saveOptionsModal').style.display = 'block';
+      }
+      
+      // 保存图片选项功能
+      function saveImage(type) {
+        document.getElementById('saveOptionsModal').style.display = 'none';
+        
         // 隐藏底部按钮区域
         const bottomActions = document.querySelector('.bottom-actions');
         bottomActions.style.display = 'none';
         
+        let targetElement;
+        let fileName;
+        
+        if (type === 'experience') {
+          targetElement = document.querySelector('.category:first-of-type');
+          fileName = '体验单价目表.png';
+        } else if (type === 'formal') {
+          targetElement = document.querySelector('.category:last-of-type');
+          fileName = '正式单价目表.png';
+        } else {
+          targetElement = document.querySelector('.container');
+          fileName = '完整价目表.png';
+        }
+        
         // 使用html2canvas截图
-        html2canvas(document.querySelector('.container'), {
+        html2canvas(targetElement, {
           backgroundColor: '#ffffff',
           scale: 2,
           useCORS: true
@@ -479,7 +554,7 @@
           
           // 创建下载链接
           const link = document.createElement('a');
-          link.download = '价目表.png';
+          link.download = fileName;
           link.href = canvas.toDataURL();
           link.click();
         }).catch(error => {
