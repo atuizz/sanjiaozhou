@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>三角洲护航价目表</title>
   <meta name="description" content="三角洲护航官方价目表，体验单与正式单完整报价。" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     :root {
       --bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
@@ -261,7 +262,7 @@
     <div class="container">
 
       
-      <h1>🔺 三角洲护航价目表</h1>
+      <h1>三角洲护航价目表</h1>
       <p class="subtitle">专业游戏护航服务 · 技术过硬 · 服务贴心</p>
     </div>
   </header>
@@ -377,6 +378,10 @@
             <span class="btn-icon">💬</span>
             <span class="btn-text">联系客服</span>
           </button>
+          <button class="action-btn" id="saveImageBtn">
+            <span class="btn-icon">📷</span>
+            <span class="btn-text">保存图片</span>
+          </button>
         </div>
       </div>
      </main>
@@ -455,6 +460,34 @@
         if (urls[shop]) {
           window.open(urls[shop], '_blank');
         }
+      }
+      
+      // 保存为图片功能
+      document.getElementById('saveImageBtn').onclick = function() {
+        // 隐藏底部按钮区域
+        const bottomActions = document.querySelector('.bottom-actions');
+        bottomActions.style.display = 'none';
+        
+        // 使用html2canvas截图
+        html2canvas(document.querySelector('.container'), {
+          backgroundColor: '#ffffff',
+          scale: 2,
+          useCORS: true
+        }).then(canvas => {
+          // 恢复底部按钮显示
+          bottomActions.style.display = 'flex';
+          
+          // 创建下载链接
+          const link = document.createElement('a');
+          link.download = '价目表.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        }).catch(error => {
+          // 恢复底部按钮显示
+          bottomActions.style.display = 'flex';
+          alert('保存失败，请重试');
+          console.error('截图失败:', error);
+        });
       }
       
 
