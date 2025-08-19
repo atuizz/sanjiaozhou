@@ -3,10 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>三角洲护航价目表</title>
-  <meta name="description" content="三角洲护航官方价目表，体验单与正式单完整报价。" />
+  <title>三角洲护航价目表 - 官方报价单 | 体验单正式单完整价格</title>
+  <meta name="description" content="三角洲护航官方价目表，提供体验单与正式单完整报价。专业游戏护航服务，透明价格，优质体验。" />
+  <meta name="keywords" content="三角洲护航,价目表,游戏护航,体验单,正式单,报价" />
+  <meta name="author" content="三角洲护航" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="三角洲护航价目表 - 官方报价单" />
+  <meta property="og:description" content="三角洲护航官方价目表，提供体验单与正式单完整报价。专业游戏护航服务，透明价格，优质体验。" />
+  <meta property="og:site_name" content="三角洲护航" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="三角洲护航价目表 - 官方报价单" />
+  <meta property="twitter:description" content="三角洲护航官方价目表，提供体验单与正式单完整报价。专业游戏护航服务，透明价格，优质体验。" />
+  
   <link rel="icon" type="image/x-icon" href="https://df.qq.com/favicon.ico" />
   <link rel="shortcut icon" type="image/x-icon" href="https://df.qq.com/favicon.ico" />
+  <link rel="canonical" href="https://atuizz.github.io/sanjiaozhou/" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     :root {
@@ -320,9 +336,9 @@
       align-items: center;
       gap: 12px;
       padding: 12px 16px;
-      border: 2px solid #e5e7eb;
+      border: 2px solid var(--border);
       border-radius: 8px;
-      background: white;
+      background: var(--card);
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 14px;
@@ -330,9 +346,9 @@
     }
     .save-option-btn:hover {
       border-color: var(--primary);
-      background: #fef2f2;
+      background: var(--section-bg);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+      box-shadow: 0 4px 12px var(--ring);
     }
     .option-icon {
       font-size: 18px;
@@ -676,6 +692,35 @@
       });
 
     </script>
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "三角洲护航价目表",
+      "description": "三角洲护航官方价目表，提供体验单与正式单完整报价。专业游戏护航服务，透明价格，优质体验。",
+      "url": "https://atuizz.github.io/sanjiaozhou/",
+      "mainEntity": {
+        "@type": "Service",
+        "name": "三角洲护航服务",
+        "description": "专业游戏护航服务",
+        "provider": {
+          "@type": "Organization",
+          "name": "三角洲护航"
+        }
+      }
+    }
+    </script>
+
+    <!-- 版权信息 -->
+    <footer style="background: var(--section-bg); border-top: 1px solid var(--border); padding: 20px 0; text-align: center; margin-top: 20px; color: var(--muted); font-size: 14px;">
+      <div class="container">
+        <p style="margin: 0; line-height: 1.6;">
+          © 2024 三角洲护航 | 专业游戏护航服务 | 所有价格最终解释权归三角洲护航所有
+        </p>
+      </div>
+    </footer>
 
 </body>
 </html>
